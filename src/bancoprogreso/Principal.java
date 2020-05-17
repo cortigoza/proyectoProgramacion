@@ -16,8 +16,9 @@ public class Principal {
      */
     public static void main(String[] args) {
 
-        //Instanciamos la clase banco progreso
+        // Instanciamos la clase banco progreso
         BancoProgreso banco = new BancoProgreso();
         banco.bienvenido();
+
     }
 }
