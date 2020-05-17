@@ -97,16 +97,15 @@ public class Acciones {
     /*
      * este metodo mostrara el saldo actual del cliente por medio de su cedula .
      *
-     *
-     * public String obtenerSaldoActual(String cedula){ for (int i = 0; i <
-     * clientes.length - 1; i++) { for (int j = 0; j < clientes[i].length; j++) {
-     * if(clientes[i][2].equals(cedula)) return clientes[i][3]; } }
-     * 
-     * return ""; }
-     * 
-     * 
-     * /**
-     * 
+     */
+     
+     public String obtenerSaldoActual(String cedula){ for (int i = 0; i <
+        clientes.length - 1; i++) { for (int j = 0; j < clientes[i].length; j++) {
+        if(clientes[i][2].equals(cedula)) return clientes[i][3]; } }
+        
+        return ""; 
+    }
+     /* 
      * Metodo que se encargará de ordenar los clientes de mayor a menor por medio de
      * la cedula
      */
