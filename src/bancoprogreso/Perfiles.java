@@ -12,61 +12,68 @@ package bancoprogreso;
 public class Perfiles {
 
     private final Acciones accion;
-    private String usuario[];
-
-    public void setUsuario(String[] usuario) {
-        this.usuario = usuario;
-    }
 
     public Perfiles() {
         accion = new Acciones();
-        usuario = new String[6];
+
         /**
-         * *
          *
          * inicializamos con los colaboradores del banco perfiles: perfile de la
          * aplicacion: administrador,funcionario, cliente
          */
-        String[] admin = {"Sergio", "Correa", "1111111", "100000", "2020-30-12", "0"};
+        String[] admin = { "Sergio", "Correa", "1111111", "100000", "2020-30-12", "0" };
         accion.crearUsuarios(admin);
-        String[] funcionario = {"Carlos", "ortigoza", "222222", "500000", "2020-30-12", "1"};
+
+        String[] funcionario = { "Carlos", "ortigoza", "222222", "500000", "2020-30-12", "1" };
         accion.crearUsuarios(funcionario);
-        String[] cliente = {"Nicolas", "Martinez", "333333", "500000", "2020-30-12", "2"};
+
+        String[] cliente = { "Nicolas", "Martinez", "333333", "500000", "2020-30-12", "2" };
         accion.crearUsuarios(cliente);
     }
 
     /*
-    *
-    *esta funcion publica tendra la logica de las acciones que se tendra perfil administrador
-    *el administrador tiene todos los privilegios dentro de la aplicacion
+     *
+     * esta funcion publica tendra la logica de las acciones que se tendra perfil
+     * administrador el administrador tiene todos los privilegios dentro de la
+     * aplicacion
      */
     public void admin(String cedula, int perfil) {
         boolean seguirExec;
         do {
             seguirExec = true;
             switch (this.panelAcciones(perfil)) {
+
+                // Metodo funciona correctamente
                 case "Registrar cliente":
                     accion.crearUsuarios(Utilitarios.formularioUsuario());
                     Utilitarios.mostrar("Usuario creado", Boolean.TRUE);
                     seguirExec = true;
                     break;
+
+                /**
+                 * 
+                 * Listar los clientes ordenados de mayor a menor por cedula Metodo funciona
+                 * correctamente
+                 */
                 case "Listar clientes":
-                    Utilitarios.mostrar(accion.mostrarUsuarios(), Boolean.TRUE);//solo admin
+                    Utilitarios.mostrar(accion.mostrarUsuarios(), Boolean.TRUE);
                     seguirExec = true;
                     break;
+
+                // Metodo funciona correctamente
                 case "Buscar cliente":
                     Utilitarios.mostrar(accion.buscarCliente(), Boolean.TRUE);
                     seguirExec = true;
                     break;
-                case "Ordenar por cedula":
-                    seguirExec = true;
-                    break;
+
+                // Metodo funciona correctamente
                 case "Consultar saldos":
-                    Utilitarios.mostrar(accion.sumaSaldos(), Boolean.TRUE);//solo admin
+                    Utilitarios.mostrar(accion.sumaSaldos(), Boolean.TRUE);
                     seguirExec = true;
                     break;
+
                 default:
-                    //por defecto saldra si no tiene alguna de la opciones "salir"
+                    // Por defecto saldra si no tiene alguna de la opciones "salir"
                     Utilitarios.mostrar("Gracias por usar nuestra aplicacion", Boolean.TRUE);
                     seguirExec = false;
                     break;
@@ -75,29 +82,32 @@ public class Perfiles {
     }
 
     /*
-    *
-    *esta funcion publica tendra la logica de las acciones que se tendra perfil funcionario
-    *funcionario tendra las opciones de poder registrar , ver la info de un cliente perfil 2
+     *
+     * esta funcion publica tendra la logica de las acciones que se tendra perfil
+     * funcionario funcionario tendra las opciones de poder registrar , ver la info
+     * de un cliente perfil 2
      */
     public void funcionario(String cedula, int perfil) {
         boolean seguirExec;
         do {
             seguirExec = true;
             switch (this.panelAcciones(perfil)) {
+
+                // Metodo funciona correctamente
                 case "Registrar cliente":
                     accion.crearUsuarios(Utilitarios.formularioUsuario());
                     Utilitarios.mostrar("Usuario creado", Boolean.TRUE);
                     seguirExec = true;
                     break;
+
+                // Buscar cliente
                 case "Buscar cliente":
                     Utilitarios.mostrar(accion.buscarCliente(), Boolean.TRUE);
                     seguirExec = true;
                     break;
-                case "Ordenar por cedula":
-                    seguirExec = true;
-                    break;
+
                 default:
-                    //por defecto saldra si no tiene alguna de la opciones "salir"
+                    // Por defecto saldra si no tiene alguna de la opciones "salir"
                     seguirExec = false;
                     Utilitarios.mostrar("Gracias por usar nuestra aplicacion", Boolean.TRUE);
                     break;
@@ -106,24 +116,30 @@ public class Perfiles {
     }
 
     /*
-    *
-    *esta funcion publica tendra la logica de las acciones que se tendra perfil clientes
-    *cliente podra ver su informacion personal, y sus saldos 
+     *
+     * esta funcion publica tendra la logica de las acciones que se tendra perfil
+     * clientes cliente podra ver su informacion personal, y sus saldos
      */
     public void cliente(String cedula, int perfil) {
         boolean seguirExec;
         do {
             seguirExec = true;
             switch (this.panelAcciones(perfil)) {
-                case "Consulta tu informacion"://metodo faltante me imagino bajo su misma cedula
-                    //method coming soon
+
+                // Metodo funcionando perfectamente
+                case "Consulta tu información":
+                    Utilitarios.mostrar(accion.mostrarInformacion(cedula), Boolean.TRUE);
                     seguirExec = true;
                     break;
-                case "Consultar Abonos"://metodo faltantes
+
+                case "Realiza abono":
+                    String saldoActual = accion.obtenerSaldoActual(cedula);
+                    accion.debitarAbono(Utilitarios.abonos(saldoActual), cedula);
                     seguirExec = true;
                     break;
+
                 default:
-                    //por defecto saldra si no tiene alguna de la opciones "salir"
+                    // Por defecto saldra si no tiene alguna de la opciones "salir"
                     seguirExec = false;
                     Utilitarios.mostrar("Gracias por usar nuestra aplicacion", Boolean.TRUE);
                     break;
@@ -132,12 +148,11 @@ public class Perfiles {
     }
 
     /*
-    *
-    *
-    *metodo para buscar dentro de array clientes
-    *dependiendo si existe devolvera el perfil del usuario
-    *en caso de no existir retornara 3 que es un valor que no existe en perfiles
-    *
+     *
+     * metodo para buscar dentro de array clientes dependiendo si existe devolvera
+     * el perfil del usuario en caso de no existir retornara 3 que es un valor que
+     * no existe en perfiles
+     *
      */
     public int buscarUsuario(String cedula) {
         int perfil = 3;
@@ -152,23 +167,25 @@ public class Perfiles {
     }
 
     /*
-    *
-    *metodo privado por perfil mostrara las opciones disponibles
-    *estas se mostraran de acuerdo al perfil
-    *@params object menu disponible por perfil
-    *
+     *
+     * metodo privado, por perfil mostrara las opciones disponibles estas se
+     * mostraran de acuerdo al perfil
+     * 
+     * @params object opcionesCliente menu disponible por perfil
+     *
      */
     private String panelAcciones(int perfil) {
         switch (perfil) {
             case 0:
-                Object[] opcionesAdmin = {"Registrar cliente", "Listar clientes", "Buscar cliente", "Ordenar por cedula", "Consultar saldos", "Salir"};//admin tiene todos los privilegios
+                Object[] opcionesAdmin = { "Registrar cliente", "Listar clientes", "Buscar cliente", "Consultar saldos",
+                        "Salir" };
                 return Utilitarios.menuMostrar("Bienvenido Administrador\n Selecciona una opción", opcionesAdmin);
             case 1:
-                Object[] opcionesFuncionario = {"Registrar cliente", "Buscar cliente", "Ordenar por cedula", "Salir"};
+                Object[] opcionesFuncionario = { "Registrar cliente", "Buscar cliente", "Salir" };
                 return Utilitarios.menuMostrar("Bienvenido Funcionario\n Selecciona una opción", opcionesFuncionario);
 
             case 2:
-                Object[] opcionesCliente = {"Consulta tu información", "Realiza abonos", "Salir"};
+                Object[] opcionesCliente = { "Consulta tu información", "Realiza abono", "Salir" };
                 return Utilitarios.menuMostrar("Bienvenido cliente\n Selecciona una opción", opcionesCliente);
 
         }

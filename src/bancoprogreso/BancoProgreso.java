@@ -5,8 +5,6 @@
  */
 package bancoprogreso;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author {Cristian Aragon, Sergio Correa, Nicolas Martinez, Carlos Ortigoza}
@@ -17,6 +15,11 @@ public class BancoProgreso extends Perfiles {
 
     }
 
+    /*
+     * por medio de la digitacion de cedula verificara 
+     * si existe se desplegara menu de acuerdo a su perfil
+     *
+     */
     public void bienvenido() {
 
         String cedula = Utilitarios.leerString("Bienvenido  por favor Ingrese su cedula");

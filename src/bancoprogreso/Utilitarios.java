@@ -20,11 +20,12 @@ import javax.swing.JTextField;
 public class Utilitarios {
 
     /*
-    *metodo para mostrar un mensaje
-    *editado:agregado opciones personalizadas
-    *estado_mensaje definido por defecto error
-    *@params mensaje 
-    *@params estado
+     * metodo para mostrar un mensaje editado:agregado opciones personalizadas
+     * estado_mensaje definido por defecto error
+     * 
+     * @params mensaje
+     * 
+     * @params estado
      */
     public static void mostrar(String mensaje, Boolean estado) {
         int estado_mensaje = JOptionPane.ERROR_MESSAGE;
@@ -35,25 +36,19 @@ public class Utilitarios {
     }
 
     /*
-    *
-    *Menu diseñado para banco progreso
+     *
+     * Menu diseñado para banco progreso
      */
     public static String menuMostrar(String mensaje, Object[] opciones) {
-        int n = JOptionPane.showOptionDialog(null,
-                mensaje,
-                "Banco Progreso",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                opciones,
-                opciones[opciones.length - 1]);
+        int n = JOptionPane.showOptionDialog(null, mensaje, "Banco Progreso", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[opciones.length - 1]);
         return (String) opciones[n];
     }
 
     /*
-    *
-    *
-    *metodo pedira la informacion del cliente a crear mediante dialogos
+     *
+     *
+     * metodo pedira la informacion del cliente a crear mediante dialogos
      */
     public static String[] formularioUsuario() {
 
@@ -66,7 +61,7 @@ public class Utilitarios {
 
         JPanel Formulario = new JPanel();
 
-        Formulario.setLayout(new BoxLayout(Formulario, BoxLayout.Y_AXIS));//modo vertical 
+        Formulario.setLayout(new BoxLayout(Formulario, BoxLayout.Y_AXIS));// modo vertical
         Formulario.add(new JLabel("Identificacion:"));
         Formulario.add(identificacion);
         Formulario.add(new JLabel("Nombre:"));
@@ -79,31 +74,49 @@ public class Utilitarios {
         Formulario.add(fecha);
         Formulario.add(new JLabel("Perfil:"));
         Formulario.add(nivel);
-        Formulario.setSize(1024, 768);//resolucion seteada
+        Formulario.setSize(1024, 768);// resolucion seteada
 
-        int result = JOptionPane.showConfirmDialog(null, Formulario,
-                "Ingrese informacion cliente", JOptionPane.DEFAULT_OPTION);
+        JOptionPane.showConfirmDialog(null, Formulario, "Ingrese informacion cliente", JOptionPane.DEFAULT_OPTION);
 
-        String[] usuario = {nombre.getText(), apellido.getText(), identificacion.getText(),
-            saldo.getText(), fecha.getText(), nivel.getText()};
+        String[] usuario = { nombre.getText(), apellido.getText(), identificacion.getText(), saldo.getText(),
+                fecha.getText(), nivel.getText() };
         return usuario;
     }
 
-    public static int leerEntero(String mensaje) //metodo para leer un dato de tipo string y convertirlo a entero
+    /*
+     *
+     * metodo crea menu para digitar informacion
+     */
+    public static int abonos(String saldoActual) {
+        JTextField Abono = new JTextField(15);
+        JPanel Formulario = new JPanel();
+        Formulario.setLayout(new BoxLayout(Formulario, BoxLayout.Y_AXIS));// modo vertical
+        Formulario.add(new JLabel("Saldo actual: " + saldoActual));
+        Formulario.add(new JLabel("Digita tu abono:"));
+        Formulario.add(Abono);
+        Formulario.setSize(1024, 768);// resolucion seteada
+        JOptionPane.showConfirmDialog(null, Formulario, "Digita tu abono", JOptionPane.DEFAULT_OPTION);
+
+        int valor = Integer.parseInt(Abono.getText());
+
+        return valor;
+    }
+
+    public static int leerEntero(String mensaje) // metodo para leer un dato de tipo string y convertirlo a entero
     {
         String N = JOptionPane.showInputDialog(null, mensaje, "Banco Progreso", 1);
         int n = Integer.parseInt(N);
         return n;
     }
 
-    public static double leerDoble(String mensaje) //metodo para leer un dato string y convertirlo a double
+    public static double leerDoble(String mensaje) // metodo para leer un dato string y convertirlo a double
     {
         String N = JOptionPane.showInputDialog(null, mensaje, "Banco Progreso", 1);
         double n = Double.parseDouble(N);
         return n;
     }
 
-    public static long leerLong(String mensaje) //metodo para leer un dato string y convertirlo a long
+    public static long leerLong(String mensaje) // metodo para leer un dato string y convertirlo a long
     {
         String N = JOptionPane.showInputDialog(null, mensaje, "Banco Progreso", 1);
         long n = Long.parseLong(N);
@@ -111,7 +124,7 @@ public class Utilitarios {
     }
 
     public static float leerFloat(String mensaje) {
-        //metodo para leer un dato string y convertirlo a float
+        // metodo para leer un dato string y convertirlo a float
         String N = JOptionPane.showInputDialog(null, mensaje, "Banco Progreso", 1);
         float n = Float.parseFloat(N);
         return n;
@@ -123,7 +136,7 @@ public class Utilitarios {
         return N;
     }
 
-    public static char leerChar(String mensaje) //metodo para leer un dato string y convertirlo a char
+    public static char leerChar(String mensaje) // metodo para leer un dato string y convertirlo a char
     {
         String N = JOptionPane.showInputDialog(null, mensaje, "Banco Progreso", 1);
         char n = N.charAt(0);
